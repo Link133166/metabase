@@ -12,10 +12,10 @@ EXPOSE 3000
 
 # 5️⃣ Variables de entorno para PostgreSQL
 ENV MB_DB_TYPE=postgres
-ENV MB_DB_DBNAME=metabase      # reemplazar en Render con tu DB real
-ENV MB_DB_USER=usuario         # reemplazar en Render con tu DB real
-ENV MB_DB_PASS=contraseña      # reemplazar en Render con tu DB real
-ENV MB_DB_HOST=db_host         # reemplazar en Render con tu DB real
+ENV MB_DB_DBNAME=metabase_2yvi
+ENV MB_DB_USER=root
+ENV MB_DB_PASS=k2KvtFxdqQwOaHx1Jy3atEKoiYZ6VGOu
+ENV MB_DB_HOST=dpg-d3gvle8gjchc73a3eun0-a
 ENV MB_DB_PORT=5432
 
 # 6️⃣ Comando para iniciar Metabase
