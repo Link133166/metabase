@@ -7,14 +7,24 @@ WORKDIR /app
 # Descargar Metabase
 ADD https://downloads.metabase.com/v0.47.6/metabase.jar /app/metabase.jar
 
-# Reducir uso de memoria y threads
-ENV JAVA_OPTS="-Xmx192m -Xms128m -XX:+UseSerialGC -Dmb.jetty.maxThreads=20 -Dlog4j2.formatMsgNoLookups=true"
+# Variables de entorno
+# - Memoria máxima 128MB, mínima 64MB
+# - Serial GC (ligero)
+# - Máx 10 threads
+# - Evitar lookup de log4j
+ENV JAVA_OPTS="-Xmx128m -Xms64m -XX:+UseSerialGC -Dmb.jetty.maxThreads=10 -Dlog4j2.formatMsgNoLookups=true"
 
-# Desactivar drivers que no vas a usar para ahorrar memoria
+# Desactivar drivers que no se usarán
 ENV MB_PLUGINS_DIR=/app/plugins-disabled
 
-# Exponer puerto (Render lo detecta automáticamente)
-EXPOSE 3000
+# Puerto de Render
+ENV PORT=3000
 
-# Comando de arranque usando el puerto dinámico de Render
-CMD ["sh", "-c", "java $JAVA_OPTS -jar /app/metabase.jar --port $PORT"]
+# Carpeta para base de datos H2
+RUN mkdir -p /app/metabase.db
+
+# Exponer puerto
+EXPOSE $PORT
+
+# Comando de arranque
+CMD ["sh", "-c", "java $JAVA_OPTS -DMB_DB_FILE=/app/metabase.db/metabase.db -Dmb.server.port=$PORT -jar /app/metabase.jar"]
