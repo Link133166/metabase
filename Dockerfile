@@ -23,4 +23,4 @@ ENV MB_PLUGINS_DIR=/app/plugins-disabled
 EXPOSE 3000
 
 # Comando de arranque usando puerto dinámico de Render
-CMD ["sh", "-c", "java $JAVA_OPTS -jar /app/metabase.jar --port $PORT"]
+CMD ["sh", "-c", "java $JAVA_OPTS -jar /app/metabase.jar"]
